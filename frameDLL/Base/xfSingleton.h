@@ -15,7 +15,14 @@ namespace XFRAME
 		static T* Instance() {
 #ifdef THREAD_SINGLETON
 			{
-				std::
+				T* pinstance = _instance.load(std::memory_order_acquire);
+				if (!pinstance)
+				{
+					std::lock_guard<std::mutex> mutex_lock(_mutex);
+					pinstance = new T;
+					_instance.store(pinstance, std::memory_order_relaxed);
+					std::atexit(&Singleton<T>::Destory());
+				}
 			}
 #else
 			static T instance;
@@ -23,23 +30,35 @@ namespace XFRAME
 #endif
 		}
 	protected:
-		Singleton() default;
+		Singleton() = default;
 
 	private:
-		~Singleton() default;
+		Singleton(const Singleton& other) = delete;
+		Singleton(const Singleton&& other) = delete;
+		Singleton& operator =(const Singleton& other) = delete;
+		Singleton&& operator =(const Singleton&& other) = delete;
 
-	private:
-		void Destory() {
 #ifdef THREAD_SINGLETON
-
-#endif
-		}
 	private:
-		std::atomic<T*> _instance;
-		std::mutex      _mutex;
+
+		static void Destory() {
+			T* pinstance = _instance.load(std::memory_order_acquire);
+			if (pinstance)
+			{
+				_instance.store(nullptr, std::memory_order_release);
+				delete pinstance;
+				pinstance = nullptr;
+			}
+		}
+
+		static std::atomic<T*> _instance;
+		static std::mutex      _mutex;
+#endif
 	};
+#ifdef THREAD_SINGLETON 
+	template<typename T> std::atomic<T*> Singleton<T>::_instance;
+	template<typename T> std::mutex      Singleton<T>::_mutex;
+#endif
 }
-
-
 
 #endif //_XFSINGLETON_H_

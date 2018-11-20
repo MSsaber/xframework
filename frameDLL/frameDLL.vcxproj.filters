@@ -16,6 +16,9 @@
     <Filter Include="Base">
       <UniqueIdentifier>{5d16509a-4de5-4a21-a4c5-088ab53fa824}</UniqueIdentifier>
     </Filter>
+    <Filter Include="DataCenter">
+      <UniqueIdentifier>{b0057619-30cd-4d00-b128-3cba3b24d515}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -27,6 +30,21 @@
     <ClInclude Include="Base\xfSingleton.h">
       <Filter>Base</Filter>
     </ClInclude>
+    <ClInclude Include="xfTypeDef.h">
+      <Filter>Base</Filter>
+    </ClInclude>
+    <ClInclude Include="DataCenter\xfObject.h">
+      <Filter>DataCenter</Filter>
+    </ClInclude>
+    <ClInclude Include="Base\xfRuntimeClass.h">
+      <Filter>Base</Filter>
+    </ClInclude>
+    <ClInclude Include="Base\xfRuntimeClassTable.h">
+      <Filter>Base</Filter>
+    </ClInclude>
+    <ClInclude Include="DataCenter\xfNode.h">
+      <Filter>DataCenter</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -37,6 +55,18 @@
     </ClCompile>
     <ClCompile Include="dllmain.cpp">
       <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="DataCenter\xfObject.cpp">
+      <Filter>DataCenter</Filter>
+    </ClCompile>
+    <ClCompile Include="Base\xfRuntimeClass.cpp">
+      <Filter>Base</Filter>
+    </ClCompile>
+    <ClCompile Include="Base\xfRuntimeClassTable.cpp">
+      <Filter>Base</Filter>
+    </ClCompile>
+    <ClCompile Include="DataCenter\xfNode.cpp">
+      <Filter>DataCenter</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
