@@ -19,6 +19,9 @@
     <Filter Include="DataCenter">
       <UniqueIdentifier>{b0057619-30cd-4d00-b128-3cba3b24d515}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Memory">
+      <UniqueIdentifier>{022bbfd0-1c13-4626-b028-e7875fb312ac}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">

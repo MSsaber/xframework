@@ -18,10 +18,14 @@ namespace XFRAME
 				T* pinstance = _instance.load(std::memory_order_acquire);
 				if (!pinstance)
 				{
-					std::lock_guard<std::mutex> mutex_lock(_mutex);
-					pinstance = new T;
-					_instance.store(pinstance, std::memory_order_relaxed);
-					std::atexit(&Singleton<T>::Destory());
+					pinstance = _instance.load(std::memory_order_relaxed);
+					if (!pinstance)
+					{
+						std::lock_guard<std::mutex> mutex_lock(_mutex);
+						pinstance = new T;
+						_instance.store(pinstance, std::memory_order_release);
+						std::atexit(&Singleton<T>::Destory());
+					}
 				}
 			}
 #else

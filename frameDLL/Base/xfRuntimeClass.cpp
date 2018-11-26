@@ -1,4 +1,7 @@
 #include "stdafx.h"
+
+#include <memory>
+
 #include "../DataCenter/xfObject.h"
 #include "xfRuntimeClass.h"
 
