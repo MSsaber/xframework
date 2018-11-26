@@ -1,25 +1,45 @@
 #include "stdafx.h"
+#include "combaseapi.h"
 #include "xfNode.h"
 
 using namespace XFRAME;
 using namespace std;
 
+std::string __fastcall GetUUid()
+{
+	char buffer[64] = { 0 };
+	GUID guid;
+
+	if (CoCreateGuid(&guid))
+	{
+		fprintf(stderr, "create guid error\n");
+		return "";
+	}
+	snprintf(buffer, sizeof(buffer),
+		"%08X-%04X-%04x-%02X%02X-%02X%02X%02X%02X%02X%02X",
+		guid.Data1, guid.Data2, guid.Data3,
+		guid.Data4[0], guid.Data4[1], guid.Data4[2],
+		guid.Data4[3], guid.Data4[4], guid.Data4[5],
+		guid.Data4[6], guid.Data4[7]);
+
+	return std::string(buffer);
+}
+
+
 Node::Node()
 {
+	std::string uuid_str = GetUUid();
+	if (uuid_str.length())
+	{
+		NodeId = uuid_str;
+	}
 	ParentNode = nullptr;
 	NextNode = nullptr;
 }
 
 Node::~Node()
 {
-	if (DType == Node::All)
-	{
-		for (auto node : ChildrenNode)
-		{
-			delete node;
-			node = nullptr;
-		}
-	}
+	RemoveAll(DType == Node::All ? true : false);
 }
 
 Node* Node::GetChild(XUINT index)
@@ -45,6 +65,31 @@ void Node::SetParent(Node* node)
 const Node* Node::GetParent() const
 {
 	return ParentNode;
+}
+
+void Node::SetNodeName(const std::string& name)
+{
+	NodeName = name;
+}
+
+std::string Node::GetNodeName()
+{
+	return NodeName;
+}
+
+void Node::SetNodeInfo(const std::string& info)
+{
+	NodeInfo = info;
+}
+
+std::string Node::GetNodeInfo()
+{
+	return NodeInfo;
+}
+
+std::string Node::GetNodeId()
+{
+	return NodeId;
 }
 
 void Node::AddChild(Node* node)
@@ -86,12 +131,33 @@ void Node::RemoveChild(Node* node, bool recycleChildren)
 	}
 }
 
+void Node::RemoveChildren(XUINT pos, XUINT count)
+{
+
+}
+
+void Node::RemoveAll(bool recycleChildren)
+{
+	if (recycleChildren)
+	{
+		for (auto node : ChildrenNode)
+		{
+			delete node;
+			node = nullptr;
+		}
+	}
+	ChildrenNode.clear();
+}
+
 NodeVector& Node::GetChildren()
 {
 	return ChildrenNode;
 }
 
-
+const NodeVector& Node::GetChildren() const
+{
+	return ChildrenNode;
+}
 
 void Node::Traverse(Node* node, TraverseDelegate td)
 {
