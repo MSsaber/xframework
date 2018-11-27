@@ -133,7 +133,20 @@ void Node::RemoveChild(Node* node, bool recycleChildren)
 
 void Node::RemoveChildren(XUINT pos, XUINT count)
 {
-
+	XUINT index = 0;
+	for (NodeVector::iterator iter = ChildrenNode.begin();
+		iter != ChildrenNode.end(); )
+	{
+		if (index >= pos && index <= count)
+		{
+			iter = ChildrenNode.erase(iter);
+		}
+		else
+		{
+			iter++;
+		}
+		index++;
+	}
 }
 
 void Node::RemoveAll(bool recycleChildren)

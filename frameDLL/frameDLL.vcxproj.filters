@@ -22,6 +22,9 @@
     <Filter Include="Memory">
       <UniqueIdentifier>{022bbfd0-1c13-4626-b028-e7875fb312ac}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Commond">
+      <UniqueIdentifier>{2c130785-69f4-4601-b350-9696aa3d7f6d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -48,6 +51,15 @@
     <ClInclude Include="DataCenter\xfNode.h">
       <Filter>DataCenter</Filter>
     </ClInclude>
+    <ClInclude Include="Commond\TriggerManager.h">
+      <Filter>Commond</Filter>
+    </ClInclude>
+    <ClInclude Include="Commond\Commond.h">
+      <Filter>Commond</Filter>
+    </ClInclude>
+    <ClInclude Include="Memory\MemoryBlock.h">
+      <Filter>Memory</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -70,6 +82,15 @@
     </ClCompile>
     <ClCompile Include="DataCenter\xfNode.cpp">
       <Filter>DataCenter</Filter>
+    </ClCompile>
+    <ClCompile Include="Commond\TriggerManager.cpp">
+      <Filter>Commond</Filter>
+    </ClCompile>
+    <ClCompile Include="Commond\Commond.cpp">
+      <Filter>Commond</Filter>
+    </ClCompile>
+    <ClCompile Include="Memory\MemoryBlock.cpp">
+      <Filter>Memory</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
