@@ -1,15 +1,15 @@
 #include "stdafx.h"
-#include "TriggerManager.h"
-#include "Commond.h"
+#include "xfTriggerManager.h"
+#include "xfCommond.h"
 
 using namespace XFRAME;
 
-CommondLine::CommondLine()
+CommondInterface::CommondInterface()
 {
 	TriggerManager::AddCommondTrigger(this);
 }
 
-CommondLine::~CommondLine()
+CommondInterface::~CommondInterface()
 {
 	TriggerManager::RemoveCommondTrigger(this);
 }

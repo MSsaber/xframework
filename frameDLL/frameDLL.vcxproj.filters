@@ -25,6 +25,9 @@
     <Filter Include="Commond">
       <UniqueIdentifier>{2c130785-69f4-4601-b350-9696aa3d7f6d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Task">
+      <UniqueIdentifier>{d60a5626-d12a-4609-a5c0-6bca603126e3}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -51,14 +54,20 @@
     <ClInclude Include="DataCenter\xfNode.h">
       <Filter>DataCenter</Filter>
     </ClInclude>
-    <ClInclude Include="Commond\TriggerManager.h">
-      <Filter>Commond</Filter>
+    <ClInclude Include="Task\xfTaskPool.h">
+      <Filter>Task</Filter>
     </ClInclude>
-    <ClInclude Include="Commond\Commond.h">
-      <Filter>Commond</Filter>
-    </ClInclude>
-    <ClInclude Include="Memory\MemoryBlock.h">
+    <ClInclude Include="Memory\xfMemoryBlock.h">
       <Filter>Memory</Filter>
+    </ClInclude>
+    <ClInclude Include="Commond\xfTriggerManager.h">
+      <Filter>Commond</Filter>
+    </ClInclude>
+    <ClInclude Include="Commond\xfCommond.h">
+      <Filter>Commond</Filter>
+    </ClInclude>
+    <ClInclude Include="Task\xfTask.h">
+      <Filter>Task</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -83,14 +92,17 @@
     <ClCompile Include="DataCenter\xfNode.cpp">
       <Filter>DataCenter</Filter>
     </ClCompile>
-    <ClCompile Include="Commond\TriggerManager.cpp">
-      <Filter>Commond</Filter>
+    <ClCompile Include="Task\xfTaskPool.cpp">
+      <Filter>Task</Filter>
     </ClCompile>
-    <ClCompile Include="Commond\Commond.cpp">
-      <Filter>Commond</Filter>
-    </ClCompile>
-    <ClCompile Include="Memory\MemoryBlock.cpp">
+    <ClCompile Include="Memory\xfMemoryBlock.cpp">
       <Filter>Memory</Filter>
+    </ClCompile>
+    <ClCompile Include="Commond\xfTriggerManager.cpp">
+      <Filter>Commond</Filter>
+    </ClCompile>
+    <ClCompile Include="Commond\xfCommond.cpp">
+      <Filter>Commond</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

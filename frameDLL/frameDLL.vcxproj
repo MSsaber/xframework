@@ -150,31 +150,34 @@
     <ClInclude Include="Base\xfRuntimeClassTable.h" />
     <ClInclude Include="Base\xfRuntimeClass.h" />
     <ClInclude Include="Base\xfSingleton.h" />
-    <ClInclude Include="Commond\Commond.h" />
-    <ClInclude Include="Commond\TriggerManager.h" />
+    <ClInclude Include="Commond\xfCommond.h" />
+    <ClInclude Include="Commond\xfTriggerManager.h" />
     <ClInclude Include="DataCenter\xfNode.h" />
     <ClInclude Include="DataCenter\xfObject.h" />
-    <ClInclude Include="Memory\MemoryBlock.h" />
+    <ClInclude Include="Memory\xfMemoryBlock.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
+    <ClInclude Include="Task\xfTask.h" />
+    <ClInclude Include="Task\xfTaskPool.h" />
     <ClInclude Include="xfTypeDef.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Base\xfRuntimeClassTable.cpp" />
     <ClCompile Include="Base\xfRuntimeClass.cpp" />
-    <ClCompile Include="Commond\Commond.cpp" />
-    <ClCompile Include="Commond\TriggerManager.cpp" />
+    <ClCompile Include="Commond\xfCommond.cpp" />
+    <ClCompile Include="Commond\xfTriggerManager.cpp" />
     <ClCompile Include="DataCenter\xfNode.cpp" />
     <ClCompile Include="DataCenter\xfObject.cpp" />
     <ClCompile Include="dllmain.cpp" />
     <ClCompile Include="frameDLL.cpp" />
-    <ClCompile Include="Memory\MemoryBlock.cpp" />
+    <ClCompile Include="Memory\xfMemoryBlock.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="Task\xfTaskPool.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

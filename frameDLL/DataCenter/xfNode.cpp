@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "combaseapi.h"
 #include "xfNode.h"
+#include "../Task/xfTask.h"
 
 using namespace XFRAME;
 using namespace std;

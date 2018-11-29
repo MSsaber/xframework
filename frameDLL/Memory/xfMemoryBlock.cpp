@@ -1,6 +1,6 @@
 #include "stdafx.h"
 
-#include "MemoryBlock.h"
+#include "xfMemoryBlock.h"
 
 using namespace XFRAME;
 

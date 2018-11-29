@@ -1,5 +1,5 @@
-#ifndef _MEMORYBLOCK_H_
-#define _MEMORYBLOCK_H_
+#ifndef _XFMEMORYBLOCK_H_
+#define _XFMEMORYBLOCK_H_
 
 namespace XFRAME
 {
@@ -14,4 +14,4 @@ namespace XFRAME
 	};
 }
 
-#endif //!_MEMORYBLOCK_H_
+#endif //!_XFMEMORYBLOCK_H_
