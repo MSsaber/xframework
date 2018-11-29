@@ -63,10 +63,7 @@ namespace XFRAME
 		}
 	public:
 		void Run() {
-			if (IsAsyn){
-				Result.get();
-			}
-			else {
+			if (!IsAsyn){
 				DoTask.store(true, std::memory_order_release);
 			}
 		}
