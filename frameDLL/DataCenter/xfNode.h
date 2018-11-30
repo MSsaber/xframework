@@ -17,7 +17,7 @@ namespace XFRAME
 		typedef std::function<bool(Node*)> TraverseDelegate;
 		enum DestructType
 		{
-			All,         //Recycle all resources,including child nodes
+			All,    //Recycle all resources,including child nodes
 			Oneself //Just recycle self
 		};
 	public:

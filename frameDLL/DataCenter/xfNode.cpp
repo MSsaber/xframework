@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "combaseapi.h"
 #include "xfNode.h"
-#include "../Task/xfTask.h"
+#include "../Task/xfTaskPool.h"
 
 using namespace XFRAME;
 using namespace std;
@@ -29,6 +29,14 @@ std::string __fastcall GetUUid()
 
 Node::Node()
 {
+	XFRAME::Task<void> tsk(true,[]() {
+		int i = 0;
+	});
+	XFRAME::TaskPool tpool;
+	tpool.AddTask<void>(true, "123", []() {
+		int i = 0;
+	});
+
 	std::string uuid_str = GetUUid();
 	if (uuid_str.length())
 	{

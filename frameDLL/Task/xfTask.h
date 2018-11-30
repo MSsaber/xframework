@@ -2,6 +2,7 @@
 #define _XFTASK_H_
 
 #include <future>
+#include "xfTaskInterface.h"
 
 #ifdef _WINDOW_OS_
 #include <psapi.h>
@@ -12,6 +13,7 @@ namespace XFRAME
 {
 	template<typename Future_type>
 	class Task
+		: public TaskInterface
 	{
 		typedef void* TaskHanle;
 		typedef unsigned long TaskMemory;
@@ -21,12 +23,14 @@ namespace XFRAME
 		Task& operator=(const Task&) = delete;
 		Task&& operator=(Task&&) = delete;
 	public:
-		template<typename _Fx, typename... _Types>
-		explicit Task(bool IsAysn,_Fx&& _Func, _Types&&... _Args){
+		template<typename Fx, typename... Types>
+		explicit Task(bool IsAysn,Fx&& _Func, Types&&... _Args){
 			this->IsAsyn = IsAsyn;
-			auto func = std::bind(_STD forward<_Fx>(_Func), _STD forward<_Types>(_Args)...);
+			std::function<Future_type(Types...)> func = 
+				std::bind(std::forward<Fx>(_Func), std::forward<Types>(_Args)...);
+
 			if (IsAysn){
-				std::packaged_task<Future_type(_Types...)> pTsk(func);
+				std::packaged_task<Future_type(Types...)> pTsk(func);
 				Result = pTsk.get_future();
 				Tsk = std::move(std::thread(std::move(pTsk)));
 			}
@@ -66,6 +70,10 @@ namespace XFRAME
 			if (!IsAsyn){
 				DoTask.store(true, std::memory_order_release);
 			}
+			else{
+				//If Future_type is void
+				Result._Get_value();
+			}
 		}
 
 		void Join() {
@@ -82,7 +90,7 @@ namespace XFRAME
 		}
 
 		TaskHanle GetHandle() {
-			Tsk.native_handle();
+			return Tsk.native_handle();
 		}
 
 		TaskMemory GetTaskSize(){
@@ -95,6 +103,7 @@ namespace XFRAME
 		}
 
 		Future_type GetResult() {
+			DoTask.store(true, std::memory_order_release);
 			return (_STD move(Result._Get_value()));
 		}
 	public:

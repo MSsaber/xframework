@@ -157,6 +157,7 @@
     <ClInclude Include="Memory\xfMemoryBlock.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
+    <ClInclude Include="Task\xfTaskInterface.h" />
     <ClInclude Include="Task\xfTask.h" />
     <ClInclude Include="Task\xfTaskPool.h" />
     <ClInclude Include="xfTypeDef.h" />

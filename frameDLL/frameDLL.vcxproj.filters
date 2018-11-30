@@ -69,6 +69,9 @@
     <ClInclude Include="Task\xfTask.h">
       <Filter>Task</Filter>
     </ClInclude>
+    <ClInclude Include="Task\xfTaskInterface.h">
+      <Filter>Task</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
