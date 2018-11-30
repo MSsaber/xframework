@@ -104,6 +104,9 @@ namespace XFRAME
 
 		Future_type GetResult() {
 			DoTask.store(true, std::memory_order_release);
+			if (!Result.valid()){
+				throw "bad Task::GetResult() : future is invaild";
+			}
 			return (_STD move(Result._Get_value()));
 		}
 	public:

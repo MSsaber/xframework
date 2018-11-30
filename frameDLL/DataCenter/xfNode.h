@@ -13,6 +13,20 @@ namespace XFRAME
 	class xframe_pai Node : public Object
 	{
 		friend class  Node;
+		friend class NodeIterator;
+	public:
+		class xframe_pai NodeIterator
+		{
+		public:
+			NodeIterator(Node* value) : Value(value) {}
+			~NodeIterator() { Value = nullptr; }
+
+			NodeIterator& operator=(const NodeIterator& other);
+			Node* operator*();
+			NodeIterator& operator++(int);
+		private:
+			Node* Value;
+		};
 	public:
 		typedef std::function<bool(Node*)> TraverseDelegate;
 		enum DestructType
@@ -49,15 +63,6 @@ namespace XFRAME
 		void    RemoveAll(bool recycleChildren);
 
 	public:
-		/* traversing*/
-		Node* operator++();
-
-		/*Add child node*/
-		Node* operator<<(Node* other);
-
-		/*remove child node*/
-		Node* operator>>(Node* other);
-	public:
 		NodeVector::iterator GetBeginIterator() { return ChildrenNode.size() ? ChildrenNode.begin() : ChildrenNode.end(); }
 		NodeVector::iterator GetEndIterator() { return ChildrenNode.end(); }
 		NodeVector::const_iterator GetConstBeginIterator() { return ChildrenNode.size() ? ChildrenNode.begin() : ChildrenNode.end(); }
@@ -72,6 +77,7 @@ namespace XFRAME
 		NodeVector   ChildrenNode;
 		Node*            ParentNode;
 		Node*            NextNode;
+		Node*            PreNode;
 		DestructType DType;
 	};
 }

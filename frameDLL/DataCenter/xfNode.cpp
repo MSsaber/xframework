@@ -29,21 +29,15 @@ std::string __fastcall GetUUid()
 
 Node::Node()
 {
-	XFRAME::Task<void> tsk(true,[]() {
-		int i = 0;
-	});
-	XFRAME::TaskPool tpool;
-	tpool.AddTask<void>(true, "123", []() {
-		int i = 0;
-	});
-
 	std::string uuid_str = GetUUid();
 	if (uuid_str.length())
 	{
 		NodeId = uuid_str;
 	}
+	DType = Node::All;
 	ParentNode = nullptr;
 	NextNode = nullptr;
+	PreNode = nullptr;
 }
 
 Node::~Node()
@@ -103,7 +97,41 @@ std::string Node::GetNodeId()
 
 void Node::AddChild(Node* node)
 {
+	ChildrenNode.size() && ChildrenNode[ChildrenNode.size() - 1]->NextNode ?
+		node->NextNode = ChildrenNode[ChildrenNode.size() - 1]->NextNode : nullptr;
 	ChildrenNode.size() ? ChildrenNode[ChildrenNode.size() - 1]->NextNode = node : nullptr;
+
+	if (ChildrenNode.size())
+	{
+		node->PreNode = ChildrenNode[ChildrenNode.size() - 1];
+	}
+	else if (PreNode)
+	{
+		Node* Pre = PreNode;
+		while (Pre && !Pre->GetChildren().size())
+		{
+			Pre = Pre->PreNode;
+		}
+		if (Pre)
+		{
+			node->PreNode = Pre->GetChildren()[Pre->GetChildren().size() - 1];
+			Pre->GetChildren()[Pre->GetChildren().size() - 1]->NextNode = node;
+		}
+	}
+	if (NextNode && !node->NextNode)
+	{
+		Node* Nxt = NextNode;
+		while (Nxt && !Nxt->GetChildren().size())
+		{
+			Nxt = Nxt->NextNode;
+		}
+		if (Nxt)
+		{
+			node->NextNode = Nxt->GetChildren()[0];
+			Nxt->GetChildren()[0]->PreNode = node;
+		}
+	}
+
 	ChildrenNode.push_back(node);
 	node->ParentNode = this;
 }
@@ -190,46 +218,112 @@ void Node::Traverse(Node* node, TraverseDelegate td)
 	}
 }
 
-//operator 
-Node* Node::operator++()
+Node::NodeIterator& 
+Node::NodeIterator::operator=(
+	const Node::NodeIterator& other)
 {
-	if (!GetParent() && !GetChildren().size())
-	{
-		return nullptr;
-	}
-	if (this->NextNode)
-	{
-		return this->NextNode;
-	}
-	if (!this->NextNode &&
-		!GetParent() &&
-		GetChildren().size())
-	{
-		return GetChildren()[0];
-	}
-	if (!this->NextNode && 
-		GetParent()->NextNode &&
-		GetParent()->NextNode->GetChildren().size())
-	{
-		return GetParent()->NextNode->GetChildren()[0];
-	}
-	if (!this->NextNode && 
-		!GetParent()->NextNode &&
-		GetParent()->GetChildren()[0]->GetChildren().size())
-	{
-		return  this->GetParent()->GetChildren()[0]->GetChildren()[0];
-	}
-	return nullptr;
+	this->Value = other.Value;
+	return *this;
 }
 
-Node* Node::operator<<(Node* other)
+Node* Node::NodeIterator::operator*()
 {
-	this->AddChild(other);
-	return this;
+	return this->Value;
 }
 
-Node* Node::operator>>(Node* other)
+Node::NodeIterator& 
+Node::NodeIterator::operator++(int)
 {
-	this->RemoveChild(other, true);
-	return this;
+	if (!this->Value->GetParent() && 
+		!this->Value->GetChildren().size() &&
+		!this->Value->NextNode &&
+		!this->Value->PreNode)
+	{
+		this->Value = nullptr;
+	}
+	else if (this->Value->NextNode)
+	{
+		this->Value = this->Value->NextNode;
+	}
+	else if (!this->Value->NextNode &&
+		!this->Value->GetParent() &&
+		this->Value->GetChildren().size())
+	{
+		this->Value = this->Value->GetChildren()[0];
+	}
+	else if (!this->Value->NextNode &&
+		this->Value->GetParent()->NextNode &&
+		!this->Value->GetChildren().size())
+	{
+		Node* LastLevelNode = this->Value->GetParent()->NextNode;
+		while (LastLevelNode)
+		{
+			if (LastLevelNode->GetChildren().size())
+			{
+				this->Value = LastLevelNode->GetChildren()[0];
+				return *this;
+			}
+			LastLevelNode = LastLevelNode->NextNode;
+		}
+
+		Node* ThisLevelFirstNode = this->Value;
+		while (ThisLevelFirstNode)
+		{
+			Node* TempNode = ThisLevelFirstNode->PreNode;
+			if (!TempNode)
+			{
+				break;
+			}
+			ThisLevelFirstNode = TempNode;
+		}
+
+		while (ThisLevelFirstNode)
+		{
+			if (ThisLevelFirstNode->GetChildren().size())
+			{
+				this->Value = ThisLevelFirstNode->GetChildren()[0];
+				return *this;
+			}
+			ThisLevelFirstNode = ThisLevelFirstNode->NextNode;
+		}
+		this->Value = nullptr;
+	}
+	else if (!this->Value->NextNode &&
+		!this->Value->GetParent()->NextNode &&
+		this->Value->GetParent()->GetChildren()[0]->GetChildren().size())
+	{
+		this->Value = this->Value->GetParent()->GetChildren()[0]->GetChildren()[0];
+	}
+	else if ((!this->Value->NextNode &&
+		!this->Value->GetParent()->NextNode &&
+		!this->Value->GetChildren().size()) ||
+		(!this->Value->NextNode &&
+			this->Value->PreNode))
+	{
+		Node* ThisLevelFirstNode = this->Value;
+		while (ThisLevelFirstNode)
+		{
+			Node* TempNode = ThisLevelFirstNode->PreNode;
+			if (!TempNode)
+			{
+				break;
+			}
+			ThisLevelFirstNode = TempNode;
+		}
+		while (ThisLevelFirstNode)
+		{
+			if (ThisLevelFirstNode->GetChildren().size())
+			{
+				this->Value = ThisLevelFirstNode->GetChildren()[0];
+				return *this;
+			}
+			ThisLevelFirstNode = ThisLevelFirstNode->NextNode;
+		}
+		this->Value = nullptr;
+	}
+	else
+	{
+		this->Value = nullptr;
+	}
+	return *this;
 }
