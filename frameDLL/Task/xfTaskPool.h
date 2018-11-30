@@ -7,7 +7,7 @@
 
 namespace XFRAME
 {
-	class TaskPool
+	class xframe_pai TaskPool
 	{
 		typedef std::map<std::string, void*>::iterator TaskIter;
 

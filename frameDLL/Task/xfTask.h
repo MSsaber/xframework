@@ -119,6 +119,10 @@ namespace XFRAME
 			IsForceClose = m;
 		}
 
+		inline bool IsActive() const {
+			return DoTask.load(std::memory_order_acquire);
+		}
+
 	private:
 		bool                     Controllable = true;
 		bool                     IsForceClose = false;

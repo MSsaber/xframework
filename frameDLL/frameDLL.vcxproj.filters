@@ -72,6 +72,12 @@
     <ClInclude Include="Task\xfTaskInterface.h">
       <Filter>Task</Filter>
     </ClInclude>
+    <ClInclude Include="XFrameMacro.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="XFrameLib.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">

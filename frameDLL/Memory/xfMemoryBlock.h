@@ -3,7 +3,7 @@
 
 namespace XFRAME
 {
-	class MemoryBlock
+	class xframe_pai MemoryBlock
 	{
 	public:
 		MemoryBlock();

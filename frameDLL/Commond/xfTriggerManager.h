@@ -6,8 +6,7 @@
 
 namespace XFRAME
 {
-	class CommondInterface;
-	class TriggerManager
+	class xframe_pai TriggerManager
 	{
 		friend class CommondInterface;
 	public:

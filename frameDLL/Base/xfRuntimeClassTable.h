@@ -9,7 +9,7 @@
 // runtime class`s table
 typedef std::map<const std::string, XFRAME::RuntimeClass> _RuntimeClassTable;
 
-class RuntimeClassTable : public XFRAME::Singleton<_RuntimeClassTable>
+class xframe_pai RuntimeClassTable : public XFRAME::Singleton<_RuntimeClassTable>
 {
 public:
 

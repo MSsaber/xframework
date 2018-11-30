@@ -7,7 +7,7 @@ namespace XFRAME
 {
 	class  Object;
 	
-	typedef struct RuntimeClass
+	typedef struct xframe_pai RuntimeClass
 	{
 	public:		
 		XCPSTR m_TypeName;

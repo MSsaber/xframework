@@ -10,7 +10,7 @@ namespace XFRAME
 {
 	class Node;
 	typedef std::vector<Node*> NodeVector;
-	class Node : public Object
+	class xframe_pai Node : public Object
 	{
 		friend class  Node;
 	public:

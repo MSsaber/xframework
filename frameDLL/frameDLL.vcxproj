@@ -72,6 +72,7 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
+    <TargetName>$(ProjectName)_D</TargetName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
@@ -160,6 +161,8 @@
     <ClInclude Include="Task\xfTaskInterface.h" />
     <ClInclude Include="Task\xfTask.h" />
     <ClInclude Include="Task\xfTaskPool.h" />
+    <ClInclude Include="XFrameLib.h" />
+    <ClInclude Include="XFrameMacro.h" />
     <ClInclude Include="xfTypeDef.h" />
   </ItemGroup>
   <ItemGroup>

@@ -3,7 +3,7 @@
 
 namespace XFRAME
 {
-	class CommondInterface
+	class xframe_pai CommondInterface
 	{
 	public:
 		CommondInterface();

@@ -6,7 +6,7 @@
 namespace XFRAME
 {
 
-	class Object
+	class xframe_pai Object
 	{
 	public:
 		virtual PRuntimeClass GetRuntimeClass() const;
@@ -16,7 +16,7 @@ namespace XFRAME
 		Object();
 		virtual ~Object() = default;
 	public:
-		static RuntimeClass m_ObjectClass;
+		static RuntimeClass m_ObjectClass; 
 
 		static PRuntimeClass GetThisClass();
 		static PRuntimeClass GetBaseClass();
