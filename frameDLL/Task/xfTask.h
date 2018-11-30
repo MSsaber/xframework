@@ -32,16 +32,16 @@ namespace XFRAME
 			if (IsAysn){
 				std::packaged_task<Future_type(Types...)> pTsk(func);
 				Result = pTsk.get_future();
-				Tsk = std::move(std::thread(std::move(pTsk)));
+				Tsk = std::move(std::thread(std::move(pTsk), std::forward<Types>(_Args)...));
 			}
 			else {
 				DoTask.store(false, std::memory_order_release);
-				Tsk = std::move(std::thread([func,this]() {
+				Tsk = std::move(std::thread([func,this,_Args...]() {
 					while (true)
 					{
 						if (DoTask.load(std::memory_order_acquire))
 						{
-							func;
+							func(_Args...);
 							break;
 						}
 					}
