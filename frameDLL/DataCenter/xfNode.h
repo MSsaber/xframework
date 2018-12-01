@@ -14,6 +14,7 @@ namespace XFRAME
 	{
 		friend class  Node;
 		friend class NodeIterator;
+		
 	public:
 		class xframe_pai NodeIterator
 		{
@@ -24,6 +25,7 @@ namespace XFRAME
 			NodeIterator& operator=(const NodeIterator& other);
 			Node* operator*();
 			NodeIterator& operator++(int);
+			bool operator==(const NodeIterator& other);
 		private:
 			Node* Value;
 		};
@@ -68,7 +70,7 @@ namespace XFRAME
 		NodeVector::const_iterator GetConstBeginIterator() { return ChildrenNode.size() ? ChildrenNode.begin() : ChildrenNode.end(); }
 		NodeVector::const_iterator GetConstEndIterator() { return ChildrenNode.end(); }
 	public:
-		/**Return turn, stop traversing  */
+		/**Return true, stop traversing  */
 		static  void  Traverse(Node* node, TraverseDelegate td);
 	private:
 		std::string       NodeName;

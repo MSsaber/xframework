@@ -78,6 +78,9 @@
     <ClInclude Include="XFrameLib.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="Task\xfDelegateArray.h">
+      <Filter>Task</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">

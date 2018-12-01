@@ -211,10 +211,10 @@ const NodeVector& Node::GetChildren() const
 
 void Node::Traverse(Node* node, TraverseDelegate td)
 {
-	Node* tnode = node;
-	while (!td(tnode))
+	Node::NodeIterator iter(node);
+	while (!td(*iter))
 	{
-		tnode++;
+		iter++;
 	}
 }
 
@@ -326,4 +326,10 @@ Node::NodeIterator::operator++(int)
 		this->Value = nullptr;
 	}
 	return *this;
+}
+
+bool 
+Node::NodeIterator::operator==(const Node::NodeIterator& other)
+{
+	return this->Value == other.Value;
 }

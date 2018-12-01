@@ -36,8 +36,9 @@ namespace XFRAME
 			}
 			else {
 				DoTask.store(false, std::memory_order_release);
+				Transit.store(false, std::memory_order_release);
 				Tsk = std::move(std::thread([func,this,_Args...]() {
-					while (true)
+					while (!Transit.load(std::memory_order_acquire))
 					{
 						if (DoTask.load(std::memory_order_acquire))
 						{
@@ -49,6 +50,9 @@ namespace XFRAME
 			}
 		}
 		~Task() {
+			if (!DoTask.load(std::memory_order_acquire)){
+				Transit.store(true, std::memory_order_release);
+			}
 			if (!Controllable){
 				return;
 			}
@@ -111,7 +115,7 @@ namespace XFRAME
 		}
 	public:
 		inline std::thread::id get_id() const {
-			Tsk.get_id();
+			return Tsk.get_id();
 		}
 
 		inline bool IsContrillable() const {
@@ -131,6 +135,7 @@ namespace XFRAME
 		bool                     IsForceClose = false;
 		bool                     IsAsyn;
 		std::atomic<bool>        DoTask;
+		std::atomic<bool>        Transit;
 		std::future<Future_type> Result;
 		std::thread              Tsk;
 	};
