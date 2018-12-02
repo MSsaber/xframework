@@ -156,6 +156,7 @@
     <ClInclude Include="DataCenter\xfNode.h" />
     <ClInclude Include="DataCenter\xfObject.h" />
     <ClInclude Include="Memory\xfMemoryBlock.h" />
+    <ClInclude Include="Memory\xfSharePtr.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
     <ClInclude Include="Task\xfDelegateArray.h" />

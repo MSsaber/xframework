@@ -42,6 +42,9 @@ Node::Node()
 
 Node::~Node()
 {
+	ParentNode = nullptr;
+	NextNode = nullptr;
+	PreNode = nullptr;
 	RemoveAll(DType == Node::All ? true : false);
 }
 
